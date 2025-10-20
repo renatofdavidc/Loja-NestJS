@@ -1,0 +1,17 @@
+import { IsEmail, IsNotEmpty, IsOptional, MinLength } from 'class-validator';
+import { IsEmailUnique } from '../validator/unique-email.validator';
+
+export class updateUserDTO {
+  @IsOptional()
+  @IsNotEmpty({ message: 'O nome não pode ser vazio!' })
+  name: string;
+
+  @IsOptional()
+  @IsEmail(undefined, { message: 'O email deve ser válido!' })
+  @IsEmailUnique({ message: 'Já existe um usuário com este email!' })
+  email: string;
+
+  @IsOptional()
+  @MinLength(6, { message: 'A senha precisa ter no mínimo 6 caracteres!' })
+  password: string;
+}

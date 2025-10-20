@@ -7,13 +7,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(
     new ValidationPipe({
-      transform:true,
+      transform: true,
       whitelist: true,
-      forbidNonWhitelisted: true
-    })
-  )
+      forbidNonWhitelisted: true,
+    }),
+  );
 
-  useContainer(app.select(AppModule), { fallbackOnErrors: true })
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
   await app.listen(process.env.PORT ?? 3000);
 }
