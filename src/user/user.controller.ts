@@ -29,6 +29,7 @@ export class UserController {
     userEntity.password = userData.password;
     userEntity.name = userData.name;
     userEntity.id = uuid();
+    
     this.userService.createUser(userEntity);
     return {
       user: new ListUserDTO(userEntity.id, userEntity.name),

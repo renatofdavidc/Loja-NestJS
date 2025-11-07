@@ -32,8 +32,8 @@ export class ProductController {
     product.amount = data.amount;
     product.description = data.description;
     product.category = data.category;
-    // product.features = data.features;
-    // product.images = data.images;
+    product.features = data.features;
+    product.images = data.images;
 
     const registeredProduct = this.productService.createProduct(product);
     return registeredProduct;
