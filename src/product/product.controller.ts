@@ -1,13 +1,25 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ProductEntity } from './product.entity';
 import { randomUUID } from 'crypto';
 import { CreateProductDTO } from './dto/CreateProduct.dto';
 import { ProductRepository } from './product.repository';
 import { UpdateProductDTO } from './dto/UpdateProduct.dto';
+import { ProductService } from './product.service';
 
 @Controller('products')
 export class ProductController {
-  constructor(private readonly productRepository: ProductRepository) {}
+  constructor(
+    private readonly productRepository: ProductRepository,
+    private readonly productService: ProductService,
+  ) {}
 
   @Post()
   async createNew(@Body() data: CreateProductDTO) {
@@ -23,7 +35,7 @@ export class ProductController {
     // product.features = data.features;
     // product.images = data.images;
 
-    const registeredProduct = this.productRepository.save(product);
+    const registeredProduct = this.productService.createProduct(product);
     return registeredProduct;
   }
 
@@ -33,14 +45,11 @@ export class ProductController {
   }
 
   @Put('/:id')
-  async update(
-    @Param('id') id: string,
-    @Body() data: UpdateProductDTO
-  ) {
-    const updatedProduct = await this.productRepository.update(id, data)
+  async update(@Param('id') id: string, @Body() data: UpdateProductDTO) {
+    const updatedProduct = await this.productRepository.update(id, data);
     return {
-        message: 'Produto atualizado com sucesso!',
-        product: updatedProduct
+      message: 'Produto atualizado com sucesso!',
+      product: updatedProduct,
     };
   }
 
@@ -49,8 +58,8 @@ export class ProductController {
     const removedProduct = await this.productRepository.remove(id);
 
     return {
-        message: 'Produto removido com sucesso!',
-        product: removedProduct
-    }
+      message: 'Produto removido com sucesso!',
+      product: removedProduct,
+    };
   }
 }

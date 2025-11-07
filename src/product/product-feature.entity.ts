@@ -5,11 +5,12 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
   PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity('product_features')
 export class ProductFeature {
-  @PrimaryColumn({ name: 'id' })
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column({ name: 'name', length: 100, nullable: false })

@@ -41,7 +41,7 @@ export class UserRepository {
     return potentialUser;
   }
 
-  async remove(id: string) {
+  async delete(id: string) {
     const potentialUser = this.findById(id);
     this.users = this.users.filter((savedUser) => savedUser.id !== id);
 
